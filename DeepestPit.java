@@ -5,6 +5,51 @@ public class DeepestPit {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		int[] A = new int[] {0,1,3,-2,0,1,0,-3,2,3};
+		System.out.println(deepestPit(A)); 
+	}
+	
+	public static int deepestPit (int[] numbers) {
+		int maxDepth = 0;
+		int decrease = 0; int increase = 0;
+		boolean down = false; boolean up = false; boolean pit = false;
+		for (int i=1; i<numbers.length; i++) {
+			if (numbers[i] > numbers[i-1]) {
+				int inc = numbers[i] - numbers[i-1];
+				if (pit == true) {
+					increase += inc;
+				}
+				if (up == false & down == true) { // we have a pit
+					pit = true;
+					increase = inc;
+				} 
+				up = true; down = false;
+			}
+			if (numbers[i] <= numbers[i-1]) {
+				int dec = numbers[i-1] - numbers[i];
+				if (pit == true) { // reached end of pit
+					// calculate depth of pit and reset variables
+					int depth = Math.min(decrease, increase);
+					maxDepth = depth > maxDepth? depth : maxDepth;
+					pit = false;
+					increase =0;
+														
+				}
+				if (down == false) { // potential pit start
+					decrease = dec;
+				}
+				
+				if (down == true) {
+					decrease += dec;
+				}
+				up = false; down = true;
+			}
+		}
+		if (pit == true) {
+			int depth = Math.min(decrease, increase);
+			maxDepth = depth > maxDepth? depth : maxDepth;
+		}
+		return maxDepth;
 	}
 
 }

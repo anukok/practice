@@ -24,6 +24,9 @@ public class BfsDfs {
 		printBfs(fifty);
 		System.out.println("");
 		printDfs(fifty);
+		System.out.println("");
+		invertTree(fifty);
+		printBfs(fifty);
 
 	}
 	
@@ -73,6 +76,19 @@ public class BfsDfs {
 	
 	public static void printNode(BinaryTreeNode node){
 		System.out.print(" " + node.value + " ");
+	}
+	
+    public static void invertTree(BinaryTreeNode tree) {
+		if (tree == null) return;
+		
+		invertTree(tree.left);
+		invertTree(tree.right);
+		// switch left and right
+		BinaryTreeNode temp = tree.left;
+		tree.left = tree.right;
+		tree.right = temp;
+		return;
+		
 	}
 
 }

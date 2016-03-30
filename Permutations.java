@@ -9,14 +9,15 @@ public class Permutations {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println(getPermutations("dogs"));
+		System.out.println(getPermutations("doo"));
+		// iterative??
 	}
 	
 	public static Set<String> getPermutations(String input) {
 		
 		// base cases
 		
-		 
+		 // using set, this takes care of duplicates.
 		Set<String> permutations = new HashSet<String>();
 
 		if (input.length() ==1) {

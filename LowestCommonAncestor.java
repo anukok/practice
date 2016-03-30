@@ -20,7 +20,48 @@ public class LowestCommonAncestor {
 		BinaryTreeNode fifty = new BinaryTreeNode(50, thirty, eighty);
 		
 		System.out.println(lca(fifty, eighty, thirty).value);
+		System.out.println(lcaInBST(fifty, eighty, thirty).value);
 
+	}
+	
+	public static BinaryTreeNode lcaInBST(BinaryTreeNode tree, BinaryTreeNode node1, BinaryTreeNode node2) {
+		// TODO
+		//http://www.programcreek.com/2014/07/leetcode-lowest-common-ancestor-of-a-binary-search-tree-java/
+		
+		BinaryTreeNode first = node1.value <= node2.value? node1 : node2;
+		BinaryTreeNode second = node1.value > node2.value? node1 : node2;
+		
+		if (tree.value >= first.value && tree.value <= second.value) {
+			return tree;
+		} else if (first.value > tree.value) {
+			return lcaInBST(tree.right, first, second);
+		} else if (second.value < tree.value) {
+			return lcaInBST(tree.left, first, second );
+		}
+		
+		return null;
+	}
+	
+	public static BinaryTreeNode lca2(BinaryTreeNode tree, BinaryTreeNode node1, BinaryTreeNode node2) {
+		
+		if (tree == null) {
+			return null;
+		}
+		if (tree == node1 || tree == node2) {
+			return tree;
+		}
+		BinaryTreeNode left = lca2(tree.left, node1, node2);
+				
+		BinaryTreeNode right = lca2(tree.right, node1, node2);
+		
+		if (left != null && right != null) {
+			return tree;
+		}
+		if (left != null) return left;
+		
+		if (right != null) return right;
+		
+		return null;
 	}
 	
 	public static BinaryTreeNode lca(BinaryTreeNode tree, BinaryTreeNode node1, BinaryTreeNode node2) {
